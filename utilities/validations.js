@@ -25,6 +25,10 @@ export function showAlertUpdate() {
     Alert.alert('Campos vacios', 'Favor de llenar los campos a actualizar');
 }
 
+export function showAlertComment() {
+    Alert.alert('No content in comment', 'Write something to add you to the discussion');
+}
+
 export function validateEmptyValues(value) {
     if (!value) {
         return true

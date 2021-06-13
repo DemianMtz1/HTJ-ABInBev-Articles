@@ -15,16 +15,11 @@ import backgroundApp from '../../../assets/bg-pattern.jpg';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { createArtStyles } from './styles/createArtStyles';
 import { globalStyles } from '../../../styles/globalStyles';
-import { postArticle } from '../../../utilities/services';
+import { getToken, postArticle, putArticle } from '../../../utilities/services';
 import { showAlertCreateArticle } from '../../../utilities/validations';
 
 export const CreateArticleScreen = () => {
-    const [article, setArticle] = useState({
-        title: '',
-        description: '',
-        body: '',
-        tagList: []
-    })
+    const [article, setArticle] = useState()
 
     const route = useRoute();
     const navigation = useNavigation();
@@ -47,12 +42,25 @@ export const CreateArticleScreen = () => {
     }
 
     const handleSubmitArticle = async () => {
+        const token = await getToken();
+        if (route.params.slug) {
+            const response = await putArticle(token, route.params.slug, article);
+            navigation.navigate('Settings');
+            setArticle({
+                title: '',
+                description: '',
+                body: '',
+                tagList: []
+            })
+            return;
+        }
+
         const { title, description, body, tags } = article;
         showAlertCreateArticle(title, description, body, tags)
         if (!title || !description || !body || tags.length === 0) {
             return null;
         }
-        const response = await postArticle(route.params.token, article);
+        const response = await postArticle(token, article);
         navigation.navigate('Settings');
         setArticle({
             title: '',
@@ -72,7 +80,7 @@ export const CreateArticleScreen = () => {
                 enabled={Platform.OS === 'ios' ? true : false}
             >
                 <View>
-                    <Text style={createArtStyles.headerFormTxt}>Create your article</Text>
+                    <Text style={createArtStyles.headerFormTxt}>{route.params.slug ? 'Edit your article' : 'Create your article'}</Text>
                 </View>
                 <SafeAreaView>
                     <TextInput
@@ -105,7 +113,7 @@ export const CreateArticleScreen = () => {
                         style={globalStyles.btnPrimaryBackground}
                         onPress={handleSubmitArticle}
                     >
-                        <Text style={globalStyles.btnPrimaryText}>Create article</Text>
+                        <Text style={globalStyles.btnPrimaryText}>{route.params.slug ? 'Edit article' : 'Create article'}</Text>
                     </TouchableOpacity>
                 </SafeAreaView>
             </KeyboardAvoidingView>

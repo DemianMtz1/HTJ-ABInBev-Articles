@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import header from '../../../assets/bg-pattern.jpg'
+import React, { useState } from 'react';
+import header from '../../../assets/bg-pattern.jpg';
 import {
     Image,
     ImageBackground,
@@ -11,7 +11,7 @@ import * as SecureStore from 'expo-secure-store';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { MenuSettings } from '../../../components/MenuSettings';
 
-import { getFavArticlesLengthByUser, getArticlesLengthByAuthor, getSessionUserInfo, getToken } from '../../../utilities/services';
+import { getFavArticlesLengthByUser, getArticlesLengthByAuthor, getSessionUserInfo } from '../../../utilities/services';
 import { settingsStyles } from './styles/settingsStyles';
 
 export function SettingsScreen() {
@@ -26,21 +26,16 @@ export function SettingsScreen() {
 
     useFocusEffect(
         React.useCallback(() => {
-            let isActive = true;
             const request = async () => {
                 const currentUser = await getSessionUserInfo();
                 setUser(currentUser.user)
             }
             request()
-            return () => {
-                isActive = false;
-            }
         }, [])
     )
 
     useFocusEffect(
         React.useCallback(() => {
-            let isActive = true;
             const request = async (username) => {
                 const favoritedCourses = await getFavArticlesLengthByUser(username);
                 const createdArticles = await getArticlesLengthByAuthor(username)
@@ -51,9 +46,6 @@ export function SettingsScreen() {
                 setInteractions(interaction)
             }
             request(!user ? '' : user.username)
-            return () => {
-                isActive = false;
-            }
         }, [user])
     )
 
@@ -62,7 +54,7 @@ export function SettingsScreen() {
             await SecureStore.deleteItemAsync('token');
             navigation.navigate('SignIn');
         } catch (error) {
-            console.error(object)
+            console.error(error)
         }
     }
 

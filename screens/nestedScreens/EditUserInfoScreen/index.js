@@ -42,7 +42,6 @@ export const EditUserInfoScreen = () => {
                 return;
             }
             const response = await putUserInfo(route.params.token, newUser);
-            console.log(response.user.token)
             await SecureStore.deleteItemAsync('token');
             await SecureStore.setItemAsync('token', response.user.token);
             navigation.navigate('Settings')

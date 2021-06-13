@@ -2,15 +2,13 @@ import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FilterScreen } from '../../screens/nestedScreens/FilterScreen';
-import { SavedPostScreen } from '../../screens/nestedScreens/SavedPostScreen';
 import { HomeNav } from '../HomeNav';
 import { SettingsNav } from '../SettingsNav';
+import { FavoritedArticlesScreen } from '../../screens/nestedScreens/FavoritedArticlesScreen';
 
 const Tab = createBottomTabNavigator();
 
 export const TabNav = () => {
-
-
   const handleScreenOptions = ({ route }) => ({
     tabBarIcon: ({ color, size }) => {
       let iconName;
@@ -21,7 +19,7 @@ export const TabNav = () => {
         case 'Filter':
           iconName = 'ios-search'
           break;
-        case 'SavedPost':
+        case 'FavoritedPost':
           iconName = 'ios-bookmark'
           break;
         case 'Settings':
@@ -47,7 +45,7 @@ export const TabNav = () => {
     >
       <Tab.Screen name="Home" component={HomeNav} options={{ title: '' }} />
       <Tab.Screen name="Filter" component={FilterScreen} options={{ title: '' }} />
-      <Tab.Screen name="SavedPost" component={SavedPostScreen} options={{ title: '' }} />
+      <Tab.Screen name="FavoritedPost" component={FavoritedArticlesScreen} options={{ title: '' }} />
       <Tab.Screen name="Settings" component={SettingsNav} options={{ title: '' }} />
     </Tab.Navigator>
   )

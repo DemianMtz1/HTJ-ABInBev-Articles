@@ -8,7 +8,6 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 export const MenuSettings = ({ interactions, styles, handleSignOut, navigation, user }) => {
-
     const iconConfg = {
         color: '#555',
         size: 15,
@@ -44,7 +43,7 @@ export const MenuSettings = ({ interactions, styles, handleSignOut, navigation, 
 
             <TouchableOpacity
                 style={[styles.wrapperSection, { marginTop: 10 }]}
-                onPress={() => console.log('mis articulos')}
+                onPress={() => navigation.navigate('MyArticles', user)}
             >
                 <Text><Ionicons name={'ios-folder'} size={iconConfg.size} color={iconConfg.color} /> My Articles</Text>
             </TouchableOpacity>

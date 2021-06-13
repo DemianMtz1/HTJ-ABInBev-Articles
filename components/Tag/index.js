@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     Text,
     TouchableOpacity,
@@ -6,7 +6,6 @@ import {
 import { globalStyles } from '../../styles/globalStyles';
 
 export function Tag({ tag, setTag, setPagination }) {
-
     const handlePressTag = () => {
         setTag(tag)
         setPagination(0)

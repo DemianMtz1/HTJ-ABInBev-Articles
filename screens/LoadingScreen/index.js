@@ -8,7 +8,6 @@ import logo from '../../assets/at-logo.png';
 
 import { loadingStyles } from './styles/loadingStyles'
 export const LoadingScreen = ({navigation}) => {
-
     const opacityAnim = useRef(new Animated.Value(.5)).current;
 
     useEffect(() => {

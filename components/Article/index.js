@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     Image,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { articleStyles } from './styles/articleStyles';
 
 export function Article({ article }) {
     const today = new Date(article.updatedAt);
-
+    const navigation = useNavigation();
+    const defaultImage = 'https://static.productionready.io/images/smiley-cyrus.jpg';
     return (
         <TouchableOpacity
-            onPress={()=> console.log(article.slug)}
+            onPress={()=> navigation.navigate('ArticleDetails', article)}
         >
             <View style={articleStyles.article}>
                 <View style={articleStyles.authorWrapper}>
                     <Image
-                        source={{ uri: article.author.image }}
+                        source={{ uri: !article.author.image ?  defaultImage: article.author.image}}
                         style={articleStyles.banner}
                     />
                     <Text>{article.author.username} ・</Text>

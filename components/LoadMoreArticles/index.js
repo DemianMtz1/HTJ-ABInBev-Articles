@@ -6,7 +6,6 @@ import {
 import { globalStyles } from '../../styles/globalStyles';
 
 export const LoadMoreArticles = ({articlesRef, setPagination, pagination }) => {
-    // { backgroundColor: 'darkblue', padding: 15, marginBottom: 10, alignItems: 'center' }
     return (
         <TouchableOpacity
         style={globalStyles.btnSecondaryBackground}
