@@ -1,21 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { SignInScreen } from './screens/SignInScreen';
+import { SignUpScreen } from './screens/SignUpScreen';
+import { TabNav } from './components/TabNav';
+import { LoadingScreen } from './screens/LoadingScreen';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Loading" >
+          <Stack.Screen name="Loading" component={LoadingScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerTransparent: true, headerBackTitleVisible: false, headerTitle: '', headerTintColor: '#fff' }} />
+          <Stack.Screen name="TabNav" component={TabNav} options={{ headerShown: false, gestureEnabled: false }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+export default App;
