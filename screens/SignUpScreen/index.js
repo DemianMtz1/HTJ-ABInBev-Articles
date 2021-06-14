@@ -16,7 +16,7 @@ import * as SecureStore from 'expo-secure-store';
 import { showAlertSignUp, validateEmailFormat } from '../../utilities/validations'
 import { signUpStyles } from './styles/signUpStyles';
 import { globalStyles } from '../../styles/globalStyles';
-import axios from 'axios';
+import { postUser } from '../../utilities/services';
 
 export const SignUpScreen = ({ navigation }) => {
     const [newUser, setNewUser] = useState({ username: '', email: '', password: '', repeatedPassword: '' });
@@ -25,12 +25,12 @@ export const SignUpScreen = ({ navigation }) => {
     const [errors, setErrors] = useState({ requestError: false, repeatedPassword: false, invalidEmail: false });
 
     const handleChangeUsername = text => {
-        setErrors({ ...errors, requestError: false, invalidEmail: false });
+        setErrors({ ...errors, requestError: false, invalidEmail: false, requestError: false });
         setNewUser({ ...newUser, username: text })
     }
 
     const handleChangeEmail = text => {
-        setErrors({ ...errors, requestError: false, invalidEmail: false });
+        setErrors({ ...errors, requestError: false, invalidEmail: false, requestError: false });
         setNewUser({ ...newUser, email: text })
     }
 
@@ -48,7 +48,7 @@ export const SignUpScreen = ({ navigation }) => {
         navigation.goBack()
     }
 
-    const createUser = async () => {
+    const handleRegisterUser = async () => {
         try {
             const { username, email, password, repeatedPassword } = newUser;
             showAlertSignUp(username, email, password, repeatedPassword);
@@ -73,13 +73,13 @@ export const SignUpScreen = ({ navigation }) => {
                 email,
                 password
             }
-
-            const { data } = await axios.post('https://conduit.productionready.io/api/users', { user });
+            const data = await postUser(user);
 
             let existToken = await SecureStore.getItemAsync('token')
             if (existToken) {
                 await SecureStore.deleteItemAsync('token');
             }
+
             await SecureStore.setItemAsync('token', data.user.token)
             navigation.navigate('TabNav')
 
@@ -107,19 +107,19 @@ export const SignUpScreen = ({ navigation }) => {
                 <SafeAreaView>
                     {
                         errors.repeatedPassword ?
-                            <Text style={globalStyles.errorTxt}>Diferentes contraseñas, favor de validar.</Text>
+                            <Text style={globalStyles.errorTxt}>Passwords are differents.</Text>
                             :
                             null
                     }
                     {
                         errors.invalidEmail ?
-                            <Text style={globalStyles.errorTxt}>E-mail invalido, favor de validar.</Text>
+                            <Text style={globalStyles.errorTxt}>E-mail No valid</Text>
                             :
                             null
                     }
                     {
                         errors.requestError ?
-                            <Text style={globalStyles.errorTxt}>Cuenta registrada, favor de validar.</Text>
+                            <Text style={globalStyles.errorTxt}>This is an invalid account or is already exist, please validate</Text>
                             :
                             null
                     }
@@ -127,7 +127,6 @@ export const SignUpScreen = ({ navigation }) => {
                     <TextInput
                         style={globalStyles.generalInput}
                         placeholder="username"
-                        value={newUser.username}
                         onChangeText={handleChangeUsername}
                     />
 
@@ -135,14 +134,12 @@ export const SignUpScreen = ({ navigation }) => {
                         style={globalStyles.generalInput}
                         placeholder="e-mail"
                         keyboardType='email-address'
-                        value={newUser.email}
                         onChangeText={handleChangeEmail}
                     />
                     <TextInput
                         secureTextEntry
                         style={globalStyles.generalInput}
                         placeholder="password"
-                        value={newUser.password}
                         onChangeText={handleChangePassword}
                     />
 
@@ -150,13 +147,12 @@ export const SignUpScreen = ({ navigation }) => {
                         secureTextEntry
                         style={globalStyles.generalInput}
                         placeholder="repeat password"
-                        value={newUser.repeatedPassword}
                         onChangeText={handleChangeRepeatPass}
                     />
 
                     <TouchableOpacity
-                        onPress={createUser}
                         style={globalStyles.btnPrimaryBackground}
+                        onPress={handleRegisterUser}
                     >
                         <Text style={globalStyles.btnPrimaryText}>Sign up</Text>
                     </TouchableOpacity>

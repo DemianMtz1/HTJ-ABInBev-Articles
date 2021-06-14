@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 // URLS
 const HOST = 'https://conduit.productionready.io/api';
 
+
 export const globalArticlesURL = (pagination) => `${HOST}/articles?offset=${pagination}`;
 export const articlesByFeedURL = (pagination) => `${HOST}/articles/feed?offset=${pagination}`;
 export const articlesByTagURL = (pagination, tag) => `${HOST}/articles?offset=${pagination}?tag=${tag}`;
@@ -16,7 +17,8 @@ export const deleteCommentById = (slug, id) => `${HOST}/articles/${slug}/comment
 export const currentUserURL = `${HOST}/user`;
 export const postArticlesURL = `${HOST}/articles`;
 export const tagsURL = `${HOST}/tags`
-
+export const userRegister = `${HOST}/users`
+export const loginURL = `${HOST}/users/login`
 
 // Methods
 export const getToken = async () => await SecureStore.getItemAsync('token');
@@ -195,7 +197,7 @@ export const postFavoritedArticle = async (token, slug) => {
                 Authorization: `Token ${token}`
             }
         }
-        const { data } = await axios.post(favoritedArticleURL(slug),null, options);
+        const { data } = await axios.post(favoritedArticleURL(slug), null, options);
         return data
     } catch (error) {
         console.error(error)
@@ -250,5 +252,33 @@ export const putArticle = async (token, slug, article) => {
         return data;
     } catch (error) {
         console.error(error)
+    }
+}
+
+export const postUser = async (user) => {
+    try {
+        let options = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.post(userRegister, { user }, options);
+        return data
+    } catch (error) {
+        console.log(error.response.data.errors)
+    }
+}
+
+export const postLogin = async (user) => {
+    try {
+        let options = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.post(loginURL, { user }, options);
+        return data
+    } catch (error) {
+        console.log(error.response.data.errors)
     }
 }

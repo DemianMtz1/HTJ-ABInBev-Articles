@@ -14,12 +14,12 @@ import {
 import header from '../../assets/bg-pattern.jpg';
 import logo from '../../assets/at-logo.png';
 
-import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
 import { showAlertSignIn } from '../../utilities/validations';
 import { signStyles } from './styles/signInStyles';
 import { globalStyles } from '../../styles/globalStyles';
+import { postLogin } from '../../utilities/services';
 
 export const SignInScreen = ({ navigation }) => {
 
@@ -52,7 +52,7 @@ export const SignInScreen = ({ navigation }) => {
                 return null;
             }
 
-            const { data } = await axios.post('https://conduit.productionready.io/api/users/login', { user });
+            const data = await postLogin(user)
 
             let existToken = await SecureStore.getItemAsync('token')
             if (existToken) {
@@ -71,7 +71,6 @@ export const SignInScreen = ({ navigation }) => {
             navigation.navigate('TabNav')
 
         } catch (error) {
-            console.log('error')
             if (error.message.trim().search('422')) {
                 setStatusError(true)
             }
