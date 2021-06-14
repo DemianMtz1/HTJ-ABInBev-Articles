@@ -21,4 +21,4 @@ Project features using [Real-World](https://github.com/gothinkster/realworld/tre
 - Filter articles by title
 - Sign out.
 
-Developer documentation can be found in the [Project Wiki](https://github.com/DemianMtz1/HTJ-ABInBev-Articles/wiki)
+Developer documentation can be found in the [Project Wiki](https://github.com/DemianMtz1/HTJ-ABInBev-Articles/wiki/Dependencies)
