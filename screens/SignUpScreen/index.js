@@ -139,7 +139,7 @@ export const SignUpScreen = ({ navigation }) => {
                     <TextInput
                         secureTextEntry
                         style={globalStyles.generalInput}
-                        placeholder="password"
+                        placeholder="password at least 8 characters"
                         onChangeText={handleChangePassword}
                     />
 

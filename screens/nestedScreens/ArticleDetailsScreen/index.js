@@ -134,7 +134,7 @@ export function ArticleDetailsScreen() {
         }
     }
 
-    const handleUpdatePost = () => navigation.navigate('CreateArticle', {slug})
+    const handleUpdatePost = () => navigation.navigate('CreateArticle', { slug })
 
     const renderComment = ({ item }) => <Comment articleDetailsStyles={articleDetailsStyles} item={item} iconConfg={iconConfg} user={user} slug={slug} setIsNewComment={setIsNewComment} />
 
@@ -158,11 +158,13 @@ export function ArticleDetailsScreen() {
                     </View>
 
                     <View style={articleDetailsStyles.userWrapper}>
-                        <View style={articleDetailsStyles.userInfoWrapper}>
+                        <TouchableOpacity
+                            onPress={()=> navigation.navigate('UserDetails', article.author)}
+                            style={articleDetailsStyles.userInfoWrapper}>
                             <Image source={{ uri: !article.author.image ? defaultImage : article.author.image }} style={articleDetailsStyles.imgAvatar} />
                             <Text style={articleDetailsStyles.usernameText}>{article.author.username} ・</Text>
                             <Text>{`${today.getDate()}/${today.getFullYear()}`}</Text>
-                        </View>
+                        </TouchableOpacity>
 
                         {
                             article.author.username !== user.username ?

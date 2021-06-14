@@ -14,6 +14,8 @@ export const articleBySlug = (slug) => `${HOST}/articles/${slug}`;
 export const commentsBySlugURL = (slug) => `${HOST}/articles/${slug}/comments`
 export const favoritedArticleURL = slug => `${HOST}/articles/${slug}/favorite`
 export const deleteCommentById = (slug, id) => `${HOST}/articles/${slug}/comments/${id}`
+export const followUserURL = username => `${HOST}/profiles/${username}/follow`
+export const profilesInfo = username => `${HOST}/profiles/${username}`
 export const currentUserURL = `${HOST}/user`;
 export const postArticlesURL = `${HOST}/articles`;
 export const tagsURL = `${HOST}/tags`
@@ -277,6 +279,51 @@ export const postLogin = async (user) => {
             }
         }
         const { data } = await axios.post(loginURL, { user }, options);
+        return data
+    } catch (error) {
+        console.log(error.response.data.errors)
+    }
+}
+
+export const postFollowByUsername = async (username) => {
+    try {
+        const options = {
+            headers: {
+                Authorization: `Token ${await getToken()}`,
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.post(followUserURL(username), null, options);
+        return data
+    } catch (error) {
+        console.log(error.response.data.errors)
+    }
+}
+
+export const deleteFollowByUsername = async (username) => {
+    try {
+        const options = {
+            headers: {
+                Authorization: `Token ${await getToken()}`,
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.delete(followUserURL(username), options);
+        return data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const getIsFollowing = async (username) => {
+    try {
+        const options = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${await getToken()}`,
+            }
+        }
+        const { data } = await axios.get(profilesInfo(username), options);
         return data
     } catch (error) {
         console.log(error.response.data.errors)
