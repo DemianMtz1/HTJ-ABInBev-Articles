@@ -26,7 +26,7 @@ export const getGlobalArticles = async (pagination) => {
         const { data } = await axios.get(globalArticlesURL(pagination));
         return data
     } catch (error) {
-        console.error(object)
+        console.error(error)
     }
 }
 
@@ -35,7 +35,7 @@ export const getArticlesByFeed = async (pagination, settings) => {
         const { data } = await axios.get(articlesByFeedURL(pagination), settings);
         return data
     } catch (error) {
-        console.error(object)
+        console.error(error)
     }
 }
 
@@ -44,7 +44,7 @@ export const getArticlesByTag = async (pagination, tag) => {
         const { data } = await axios.get(articlesByTagURL(pagination, tag));
         return data
     } catch (error) {
-        console.error(object)
+        console.error(error)
     }
 }
 
@@ -62,7 +62,7 @@ export const getTags = async () => {
         const { data } = await axios.get(tagsURL);
         return data;
     } catch (error) {
-        console.error(object)
+        console.error(error)
     }
 }
 
