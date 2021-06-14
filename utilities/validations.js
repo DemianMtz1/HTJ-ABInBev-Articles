@@ -2,27 +2,27 @@ import { Alert } from 'react-native'
 
 export function showAlertSignIn(email, password) {
     if (!email || !password) {
-        Alert.alert('Campos obligatorios', 'Favor de llenar los campos vacios');
+        Alert.alert('Required Fields', 'Required fields are missing, validate and continue');
         return;
     }
 }
 
 export function showAlertSignUp(username, email, password, repeatedPassword) {
     if (!email || !password || !repeatedPassword || !username) {
-        Alert.alert('Campos obligatorios', 'Favor de llenar los campos vacios');
+        Alert.alert('Required Fields', 'Required fields are missing, validate and continue');
         return;
     }
 }
 
 export function showAlertCreateArticle(title, description, body, tagList) {
     if (!title || !description || !body || tagList.length === 0) {
-        Alert.alert('Campos obligatorios', 'Favor de llenar los campos vacios');
+        Alert.alert('Required Fields', 'Required fields are missing, validate and continue');
         return null;
     }
 }
 
 export function showAlertUpdate() {
-    Alert.alert('Campos vacios', 'Favor de llenar los campos a actualizar');
+    Alert.alert('Empty fields', 'Empty fields, please validate and continue.');
 }
 
 export function showAlertComment() {

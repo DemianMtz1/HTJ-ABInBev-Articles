@@ -76,7 +76,7 @@ export const CreateArticleScreen = () => {
 
             <KeyboardAvoidingView
                 style={createArtStyles.formWrapper}
-                behavior='padding'
+                behavior={Platform.OS === 'ios' ? 'padding': 'height'}
                 enabled={Platform.OS === 'ios' ? true : false}
             >
                 <View>

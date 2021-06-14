@@ -55,7 +55,7 @@ export const EditUserInfoScreen = () => {
 
             <KeyboardAvoidingView
                 style={editInfoStyles.formWrapper}
-                behavior='padding'
+                behavior={Platform.OS === 'ios' ? 'padding': 'height'}
                 enabled={Platform.OS === 'ios' ? true : false}
             >
                 <View>
