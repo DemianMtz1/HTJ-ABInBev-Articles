@@ -24,4 +24,8 @@ Project features using [Real-World](https://github.com/gothinkster/realworld/tre
 - Filter articles by title
 - Sign out.
 
+The design was thinking to IOS, anyway, in both platforms are the same features and similar designs.
+
 Developer documentation can be found in the [Project Wiki](https://github.com/DemianMtz1/HTJ-ABInBev-Articles/wiki/Dependencies)
+
+You could run the application without install the project, you just need an android device and install expo application. Once, you installed expo you need to scan the next [QR](https://expo.io/@demianmtz1/abArticles). **To got a better experience I'll recommend you run the project in your local on an IOS Device.**
