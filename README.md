@@ -7,6 +7,9 @@ Project features using [Real-World](https://github.com/gothinkster/realworld/tre
 - Sign In/ Sign up.
 - List of articles pulled from either Feed, Global, or by Tag
 - List of formatted tags.
+- View a user profile.
+- Follow a user profile.
+- Unfollow a user profile.
 - Create articles.
 - Save as favorite any article.
 - Remove an article from your favorites.
